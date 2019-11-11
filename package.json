@@ -1,0 +1,23 @@
+{
+  "name": "ap-cs-django1",
+  "version": "1.0.0",
+  "description": "Making a blag",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --watch src/scss -o src/static --output-style=compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buckldav/ap-cs-django1.git"
+  },
+  "author": "David Buckley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/buckldav/ap-cs-django1/issues"
+  },
+  "homepage": "https://github.com/buckldav/ap-cs-django1#readme",
+  "devDependencies": {
+    "node-sass": "^4.13.0"
+  }
+}
