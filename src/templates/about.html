@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Django Site</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
   <h1>About</h1>
-  <a href="{% url 'index' %}">Back to home</a>
-</body>
-</html>
+  <p>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti delectus, quos sapiente soluta officiis assumenda saepe molestias, velit consequuntur consectetur eaque a voluptatum magnam harum labore accusantium. Nisi, temporibus delectus.
+  </p>
+{% endblock content %}

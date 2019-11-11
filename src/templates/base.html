@@ -5,11 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Blag</title>
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
   <link rel="stylesheet" href="{% static "main.css" %}">
 </head>
 <body>
+  <div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-12 text-center">
+        <a class="blog-header-logo text-dark" href="{% url 'index' %}">My Blag</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+      <a class="p-2 text-muted" href="{% url 'index' %}">Blag Home</a>
+      <a class="p-2 text-muted" href="{% url 'about' %}">About</a>
+    </nav>
+  </div>
   {% block content %}
   {% endblock content %}
+  </div>
 </body>
 </html>
