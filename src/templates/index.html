@@ -87,8 +87,9 @@
 </main><!-- /.container -->
 
 <footer class="blog-footer p-4">
-  <h2 class="display text-right">Comments</h2>
-  <form class="text-left" action="{% url "add_comment" %}" method="POST">
+  <h2 class="display text-right">Comments ({{num_comments}})</h2>
+  <form class="text-left" action="{% url "index" %}" method="POST">
+    {% csrf_token %}
     <div class="form-group">
       <label for="comment-textarea">Comment</label>
       <textarea class="form-control" id="comment-textarea" rows="3" name="comment"></textarea>
@@ -99,6 +100,13 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <p class="my-4 text-center">There are no comments to display</p>
+  <ul class="list-group text-left mt-3">
+    {% for comment in comments %}
+      <li class="list-group-item">
+        <h6>{{comment.name}} - {{comment.created}}</h6>
+        <p>{{comment.comment}}</p>
+      </li>
+    {% endfor %}
+  </ul>
 </footer>  
 {% endblock content %}
