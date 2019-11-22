@@ -1,32 +1,43 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from .models import Comment
+from .forms import CommentForm
 from .serializers import CommentSerializer
 import pytz
 
 # Django Rest Framework for seeing the JSON
-# @api_view(['POST'])
-# def add_comment(request):
-#   # Make a serializer with the JSON from the request
-#   serializer = CommentSerializer(data=request.data)
-#   # Checks that the JSON has the right fields
-#   if serializer.is_valid():
-#     # Saves the object to the database
-#     serializer.save()
-#     return Response(serializer.data, status=status.HTTP_201_CREATED)
-#   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def add_comment(request):
 
-# Display the comments
-def blog_post(request):
-  if request.POST:
+  # Create a form instance and populate it with data from the request:
+  form = CommentForm(request.POST)
+
+  if form.is_valid():
     # Make a serializer with the JSON from the request
-    serializer = CommentSerializer(data=request.POST)
+    serializer = CommentSerializer(data=request.data)
     # Checks that the JSON has the right fields
     if serializer.is_valid():
       # Saves the object to the database
       serializer.save()
+  else:
+    errors = form.errors.as_data()
+    comment_errors = {}
+    for key, val in errors.items():
+      comment_errors[key] = val[0].messages
+    request.session["comment_errors"] = comment_errors
+
+  return redirect('/')
+
+# Display the comments
+def blog_post(request):
+  form = CommentForm()
+  form_errors = {}
+  try:
+    form_errors = request.session["comment_errors"]
+    request.session["comment_errors"] = {}
+  except KeyError:
+    pass
 
   # Get all the comments
   db_comments = Comment.objects.all()
@@ -42,4 +53,9 @@ def blog_post(request):
   # Render the html for the post
   return render(request, 
                 template_name="index.html", 
-                context={'comments': comments, 'num_comments': len(comments)})
+                context={
+                  'comments': comments, 
+                  'errors': form_errors.values(),
+                  'form': form, 
+                  'num_comments': len(comments)
+                })

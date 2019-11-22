@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<ul class="errorlist p-0" style="list-style-type: none">
+  {% for elist in errors %}
+    {% for e in elist %}
+      <li class="alert alert-danger">{{e}}</li>
+    {% endfor %}
+  {% endfor %}
+</ul>
 <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
   <div class="col-md-9 px-0">
     <h1 class="display-4 font-italic">This is my blag</h1>
@@ -88,16 +96,17 @@
 
 <footer class="blog-footer p-4">
   <h2 class="display text-right">Comments ({{num_comments}})</h2>
-  <form class="text-left" action="{% url "index" %}" method="POST">
+  <form class="text-left" action="{% url "add_comment" %}" method="POST">
     {% csrf_token %}
-    <div class="form-group">
+    {{form}}
+    {% comment %} <div class="form-group">
       <label for="comment-textarea">Comment</label>
       <textarea class="form-control" id="comment-textarea" rows="3" name="comment"></textarea>
     </div>
     <div class="form-group row">
       <label for="comment-name" class="mx-2 p-2">Name</label>
       <input class="form-control col-sm-4" id="comment-name" placeholder="Joe Shmoe" name="name">
-    </div>
+    </div> {% endcomment %}
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <ul class="list-group text-left mt-3">
