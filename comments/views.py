@@ -21,10 +21,13 @@ def add_comment(request):
       # Saves the object to the database
       serializer.save()
   else:
+    # Get the errors from the form
     errors = form.errors.as_data()
     comment_errors = {}
     for key, val in errors.items():
+      # Convert the error to a string so it can be stored
       comment_errors[key] = val[0].messages
+    # Cache the errors
     request.session["comment_errors"] = comment_errors
 
   return redirect('/')
@@ -34,7 +37,9 @@ def blog_post(request):
   form = CommentForm()
   form_errors = {}
   try:
+    # Get comment errors if any from cache
     form_errors = request.session["comment_errors"]
+    # Clear comment errors
     request.session["comment_errors"] = {}
   except KeyError:
     pass
