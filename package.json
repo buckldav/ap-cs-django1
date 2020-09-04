@@ -19,6 +19,6 @@
   "homepage": "https://github.com/buckldav/ap-cs-django1#readme",
   "devDependencies": {
     "bootstrap": "^4.3.1",
-    "node-sass": "^4.13.0"
+    "node-sass": "^4.13.1"
   }
 }
